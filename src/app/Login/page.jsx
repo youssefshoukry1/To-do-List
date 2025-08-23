@@ -51,7 +51,7 @@ export default function Page() {
   <motion.div
     initial={{ opacity: 0, scale: 0.9, y: 40 }}
     animate={{ opacity: 1, scale: 1, y: 0 }}
-    transition={{ duration: 0.7,ease: [0.42, 0, 0.58, 1] }}
+    transition={{ duration: 0.7,ease: easeOut }}
     className="w-full max-w-md"
   >
     <div className="bg-indigo-900/60 backdrop-blur-lg shadow-xl rounded-2xl p-8 border border-indigo-700">
