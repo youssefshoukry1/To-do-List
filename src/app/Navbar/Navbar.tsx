@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useContext } from "react";
 import { motion } from "framer-motion";
 
+
 export default function Navbar() {
   const { isLogin, setLogin } = useContext(UserContext);
   const pathname = usePathname();
@@ -25,7 +26,7 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut"}}
+      transition={{ duration: 0.8,  ease: "easeOut" as const}}
       className="fixed top-0 left-0 w-full h-16 px-6 
                  backdrop-blur-md bg-black/30 border-b border-white/10
                  shadow-lg flex items-center justify-between z-50"

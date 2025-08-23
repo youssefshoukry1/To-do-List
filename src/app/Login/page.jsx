@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 
 export default function Page() {
   const { setLogin } = useContext(UserContext);
