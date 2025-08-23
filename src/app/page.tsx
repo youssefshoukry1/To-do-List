@@ -1,0 +1,131 @@
+"use client";
+import UserContext from "@/context/userContext/UserContextProvider";
+import React, { useContext, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
+export default function Home() {
+  const { isLogin } = useContext(UserContext);
+  const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState<{ text: string; completed: boolean }[]>([]);
+
+  // تحميل المهام من localStorage
+  useEffect(() => {
+    if (isLogin) {
+      const savedTasks = localStorage.getItem("tasks");
+      if (savedTasks) {
+        setTasks(JSON.parse(savedTasks));
+      }
+    }
+  }, [isLogin]);
+
+  // حفظ المهام
+  useEffect(() => {
+    if (isLogin) {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  }, [tasks, isLogin]);
+
+  // إضافة مهمة جديدة
+  const handleClick = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (task.trim() === "") return;
+    setTasks([...tasks, { text: task, completed: false }]);
+    setTask("");
+  };
+
+  // عمل check
+  const handleCheck = (index: number) => {
+    setTasks(
+      tasks.map((t, i) =>
+        i === index ? { ...t, completed: !t.completed } : t
+      )
+    );
+  };
+
+  // حذف
+  const handleDelete = (index: number, e: React.FormEvent) => {
+    e.preventDefault();
+    setTasks(tasks.filter((_, i) => i !== index));
+  };
+
+  return (
+    <section className="p-4 sm:p-6 flex justify-center items-center min-h-screen bg-gray-900 text-gray-200">
+      <motion.form
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full max-w-full md:max-w-2xl bg-gray-800 shadow-lg rounded-2xl p-4 sm:p-6 flex flex-col gap-5"
+      >
+        {/* Input */}
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input
+            type="text"
+            className="flex-1 bg-gray-700 text-gray-200 outline-none px-3 py-2 sm:px-4 sm:py-3 rounded-xl placeholder-gray-400 text-sm sm:text-base"
+            placeholder="Add a new task..."
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
+          />
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            onClick={handleClick}
+            className="px-4 py-2 sm:px-6 sm:py-3 bg-green-600 hover:bg-green-700 rounded-xl text-white font-medium sm:font-semibold shadow-md text-sm sm:text-base w-full sm:w-auto"
+          >
+            Add
+          </motion.button>
+        </div>
+
+        {/* Tasks */}
+        <div className="bg-gray-700 rounded-xl min-h-[200px] sm:min-h-[300px] p-3 sm:p-4 space-y-3 overflow-y-auto">
+          {tasks.length === 0 && (
+            <p className="text-gray-400 text-center text-sm sm:text-base">No tasks yet ✨</p>
+          )}
+
+          {tasks.map((t, index) => (
+            <motion.li
+              key={index}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className={`p-3 sm:p-4 flex items-center justify-between rounded-xl gap-2 sm:gap-3 ${
+                t.completed ? "bg-gray-600 line-through text-gray-400" : "bg-gray-800"
+              }`}
+            >
+              {/* النص */}
+              <span className="text-sm sm:text-base break-words">{t.text}</span>
+
+              {/* الأزرار */}
+              <div className="flex gap-2 sm:gap-3 items-center">
+                {/* Check button */}
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleCheck(index);
+                  }}
+                  className="w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded-full border-2 border-green-500 bg-gray-900"
+                >
+                  <i
+                    className={`fa-solid fa-check text-xs sm:text-sm ${
+                      t.completed ? "text-green-500" : "text-gray-500"
+                    }`}
+                  ></i>
+                </motion.button>
+
+                {/* Delete button (أيقونة بس في الموبايل) */}
+                {!t.completed && (
+                  <motion.button
+                    whileTap={{ scale: 0.9 }}
+                    onClick={(e) => handleDelete(index, e)}
+                    className="text-red-400 hover:text-red-500 transition text-sm sm:text-base"
+                  >
+                    <i className="fa-solid fa-trash"></i>
+                  </motion.button>
+                )}
+              </div>
+            </motion.li>
+          ))}
+        </div>
+      </motion.form>
+    </section>
+  );
+}
