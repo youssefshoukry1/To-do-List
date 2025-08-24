@@ -60,7 +60,7 @@ export default function Home() {
     initial={{ opacity: 0, y: -20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
-    className="text-2xl sm:text-3xl font-bold mb-6 text-center text-green-400 pt-18"
+    className="text-2xl sm:text-3xl font-bold mb-6 text-center text-green-400 pt-5"
   >
     Make Your Adventure
   </motion.h1>
