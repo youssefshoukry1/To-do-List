@@ -4,11 +4,9 @@ import axios from "axios";
 import { useFormik } from "formik";
 import React from "react";
 import * as Yup from "yup";
-import Head from "next/head";
-import { environment } from "../environment.js";
 import { useRouter } from "next/navigation";
+import { environment } from "../environment";
 
-// ✅ Type للـ values
 type ResetPasswordValues = {
   email: string;
   newPassword: string;
@@ -17,17 +15,13 @@ type ResetPasswordValues = {
 export default function ResetPassword() {
   const router = useRouter();
 
-  // ✅ Validation Schema
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .required("Email is required")
-      .email("Enter a valid email"),
+    email: Yup.string().required("Email is required").email("Enter a valid email"),
     newPassword: Yup.string()
       .required("Password is required")
       .matches(/^[A-Z][a-z0-9]{5,7}$/, "Enter a valid password"),
   });
 
-  // ✅ Submit function
   function resetPassword(values: ResetPasswordValues) {
     axios
       .put(`${environment.baseUrl}/auth/resetPassword`, values)
@@ -38,140 +32,96 @@ export default function ResetPassword() {
           router.push("/Login");
         }
       })
-      .catch((err) => {
-        console.error("Reset failed:", err);
-      });
+      .catch((err) => console.error("Reset failed:", err));
   }
 
-  // ✅ Formik
   const formik = useFormik<ResetPasswordValues>({
-    initialValues: {
-      email: "",
-      newPassword: "",
-    },
+    initialValues: { email: "", newPassword: "" },
     validationSchema,
     onSubmit: resetPassword,
   });
 
   return (
-    <>
-      <Head>
-        <title>Reset Password</title>
-      </Head>
-
-      <section className="bg-gray-50 dark:bg-gray-900 h-screen py-20">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <div className="w-full p-6 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-8">
-            <h2 className="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Change Password
-            </h2>
-
-            <form
-              onSubmit={formik.handleSubmit}
-              className="mt-4 space-y-4 lg:mt-5 md:space-y-5"
-            >
-              {/* Email */}
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Your email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="name@company.com"
-                  value={formik.values.email}
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                             focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 
-                             dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                             dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required
-                />
-                {formik.touched.email && formik.errors.email && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {formik.errors.email}
-                  </p>
-                )}
-              </div>
-
-              {/* Password */}
-              <div>
-                <label
-                  htmlFor="newPassword"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  New Password
-                </label>
-                <input
-                  type="password"
-                  name="newPassword"
-                  id="newPassword"
-                  placeholder="••••••••"
-                  value={formik.values.newPassword}
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                             focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 
-                             dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                             dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required
-                />
-                {formik.touched.newPassword && formik.errors.newPassword && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {formik.errors.newPassword}
-                  </p>
-                )}
-              </div>
-
-              {/* Checkbox */}
-              <div className="flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    id="newsletter"
-                    type="checkbox"
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 
-                               focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 
-                               dark:border-gray-600 dark:focus:ring-primary-600 
-                               dark:ring-offset-gray-800"
-                    required
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <label
-                    htmlFor="newsletter"
-                    className="font-light text-gray-500 dark:text-gray-300"
-                  >
-                    I accept the{" "}
-                    <a
-                      className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                      href="#"
-                    >
-                      Terms and Conditions
-                    </a>
-                  </label>
-                </div>
-              </div>
-
-              {/* Submit */}
-              <button
-                type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 
-                           focus:ring-4 focus:outline-none focus:ring-primary-300 
-                           font-medium rounded-lg text-sm px-5 py-2.5 text-center 
-                           dark:bg-primary-600 dark:hover:bg-primary-700 
-                           dark:focus:ring-primary-800"
-              >
-                Reset password
-              </button>
-            </form>
+    <section className="bg-gradient-to-b from-[#121212] to-[#1E1E1E] h-screen flex items-center justify-center px-4">
+      <div className="w-full max-w-md p-6 bg-[#1E1E1E] rounded-xl shadow-2xl border border-[#2A2A2A]">
+        <h2 className="mb-4 text-2xl font-bold text-[#E0E0E0] text-center">
+          Change Password
+        </h2>
+        <form onSubmit={formik.handleSubmit} className="space-y-4">
+          {/* Email */}
+          <div>
+            <label htmlFor="email" className="block mb-2 text-sm font-medium text-[#E0E0E0]">
+              Your Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="name@company.com"
+              value={formik.values.email}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              className="bg-[#2A2A2A] border border-[#3A3A3A] text-[#E0E0E0] rounded-lg text-sm block w-full p-2.5 focus:ring-green-500 focus:border-green-500"
+              required
+            />
+            {formik.touched.email && formik.errors.email && (
+              <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
+            )}
           </div>
-        </div>
-      </section>
-    </>
+
+          {/* Password */}
+          <div>
+            <label
+              htmlFor="newPassword"
+              className="block mb-2 text-sm font-medium text-[#E0E0E0]"
+            >
+              New Password
+            </label>
+            <input
+              type="password"
+              name="newPassword"
+              id="newPassword"
+              placeholder="••••••••"
+              value={formik.values.newPassword}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              className="bg-[#2A2A2A] border border-[#3A3A3A] text-[#E0E0E0] rounded-lg text-sm block w-full p-2.5 focus:ring-green-500 focus:border-green-500"
+              required
+            />
+            {formik.touched.newPassword && formik.errors.newPassword && (
+              <p className="text-red-500 text-sm mt-1">{formik.errors.newPassword}</p>
+            )}
+          </div>
+
+          {/* Terms Checkbox */}
+          <div className="flex items-start">
+            <div className="flex items-center h-5">
+              <input
+                id="terms"
+                type="checkbox"
+                className="w-4 h-4 border border-[#3A3A3A] rounded bg-[#2A2A2A] focus:ring-2 focus:ring-green-500"
+                required
+              />
+            </div>
+            <div className="ml-3 text-sm">
+              <label htmlFor="terms" className="text-gray-400">
+                I accept the{" "}
+                <a href="#" className="text-green-500 hover:underline">
+                  Terms and Conditions
+                </a>
+              </label>
+            </div>
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full text-white bg-green-600 hover:bg-green-500 font-medium rounded-lg text-sm px-5 py-2.5 transition shadow-md"
+          >
+            Reset Password
+          </button>
+        </form>
+      </div>
+    </section>
   );
 }

@@ -1,10 +1,10 @@
 "use client";
+
 import UserContext from "@/context/userContext/UserContextProvider";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useContext } from "react";
 import { motion } from "framer-motion";
-
 
 export default function Navbar() {
   const { isLogin, setLogin } = useContext(UserContext);
@@ -26,9 +26,9 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8,  ease: "easeOut" as const}}
-      className="fixed top-0 left-0 w-full h-16 px-6 
-                 backdrop-blur-md bg-black/30 border-b border-white/10
+      transition={{ duration: 0.8, ease: "easeOut" as const }}
+      className="fixed top-0 left-0 w-full h-16 px-6
+                 backdrop-blur-md bg-[#121212]/80 border-b border-[#2A2A2A]
                  shadow-lg flex items-center justify-between z-50"
     >
       {/* Logo */}
@@ -45,8 +45,8 @@ export default function Navbar() {
           <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
             <button
               onClick={logOut}
-              className="px-5 py-2 rounded-full transition-all duration-300 
-                         bg-gradient-to-r from-red-500 to-red-700 
+              className="px-5 py-2 rounded-full transition-all duration-300
+                         bg-gradient-to-r from-red-500 to-red-700
                          text-white shadow-md hover:shadow-red-500/30"
             >
               🚪 Logout
@@ -61,12 +61,12 @@ export default function Navbar() {
             >
               <Link
                 href={link.href}
-                className={`px-4 py-2 rounded-full transition-all duration-300 
-                  ${
-                    pathname === link.href
-                      ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md"
-                      : "text-gray-300 hover:text-white hover:bg-white/10"
-                  }`}
+                className={`px-4 py-2 rounded-full transition-all duration-300
+                          ${
+                            pathname === link.href
+                              ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md"
+                              : "text-gray-300 hover:text-white hover:bg-white/10"
+                          }`}
               >
                 {link.label}
               </Link>
