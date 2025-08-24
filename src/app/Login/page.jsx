@@ -132,7 +132,7 @@ export default function Page() {
         </motion.div>
 
         <p className="mt-4 text-sm text-cyan-200 text-center">
-          <Link href="/forgotpassord" className="hover:underline text-cyan-400">
+          <Link href="/ForgetPassword" className="hover:underline text-cyan-400">
             Forgot Password?
           </Link>
         </p>
