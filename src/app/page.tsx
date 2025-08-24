@@ -60,7 +60,7 @@ export default function Home() {
     initial={{ opacity: 0, y: -20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
-    className="text-2xl sm:text-3xl font-bold mb-6 text-center text-green-400 lg:pt-10"
+    className="text-2xl sm:text-3xl font-bold mb-6 text-center text-green-400 lg:pt-15"
   >
     Make Your Adventure
   </motion.h1>
@@ -70,7 +70,7 @@ export default function Home() {
     initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
-    className="w-full max-w-full md:max-w-2xl bg-gray-800 shadow-lg rounded-2xl p-4 sm:p-6 flex flex-col gap-5 lg:h-[65vh] h-[58vh]" 
+    className="w-full max-w-full md:max-w-2xl bg-gray-800 shadow-lg rounded-2xl p-4 sm:p-6 flex flex-col gap-5 lg:h-[65vh] h-[58vh] lg:mb-0 mb-7" 
     // ✨ هنا خليت للفورم ارتفاع نسبي للشاشة
   >
     {/* Input */}
