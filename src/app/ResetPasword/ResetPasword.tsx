@@ -8,6 +8,12 @@ import Head from "next/head";
 import { environment } from "../environment.js";
 import { useRouter } from "next/navigation";
 
+// ✅ Type للـ values
+type ResetPasswordValues = {
+  email: string;
+  newPassword: string;
+};
+
 export default function ResetPassword() {
   const router = useRouter();
 
@@ -22,7 +28,7 @@ export default function ResetPassword() {
   });
 
   // ✅ Submit function
-  function resetPassword(values) {
+  function resetPassword(values: ResetPasswordValues) {
     axios
       .put(`${environment.baseUrl}/auth/resetPassword`, values)
       .then(({ data }) => {
@@ -38,7 +44,7 @@ export default function ResetPassword() {
   }
 
   // ✅ Formik
-  const formik = useFormik({
+  const formik = useFormik<ResetPasswordValues>({
     initialValues: {
       email: "",
       newPassword: "",

@@ -7,6 +7,15 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { environment } from "../environment"; // عدل المسار حسب مكان الملف
 
+// ✅ Types للـ values
+type EmailValues = {
+  email: string;
+};
+
+type CodeValues = {
+  resetCode: string;
+};
+
 export default function ForgotPassword() {
   const router = useRouter();
   const [step, setStep] = useState<"email" | "verify">("email");
@@ -19,33 +28,37 @@ export default function ForgotPassword() {
     resetCode: Yup.string().required("reset code is required"),
   });
 
-  function sendCode(values) {
+  // ✅ Send code with proper typing
+  function sendCode(values: EmailValues) {
     axios
       .post(`${environment.baseUrl}/auth/forgotPasswords`, values)
       .then(({ data }) => {
         console.log(data);
-        setStep("verify"); // بدل ما تعمل querySelector
-      });
+        setStep("verify");
+      })
+      .catch((err) => console.error(err));
   }
 
-  function getcode(values) {
+  // ✅ Verify code with proper typing
+  function getcode(values: CodeValues) {
     axios
       .post(`${environment.baseUrl}/auth/verifyResetCode`, values)
       .then(({ data }) => {
         console.log(data);
-        if (data.status == "Success") {
-          router.push("/resetPassword"); // Next.js navigation
+        if (data.status === "Success") {
+          router.push("/resetPassword");
         }
-      });
+      })
+      .catch((err) => console.error(err));
   }
 
-  const formik = useFormik({
+  const formik = useFormik<EmailValues>({
     initialValues: { email: "" },
     validationSchema,
     onSubmit: sendCode,
   });
 
-  const formik2 = useFormik({
+  const formik2 = useFormik<CodeValues>({
     initialValues: { resetCode: "" },
     validationSchema: validationSchema2,
     onSubmit: getcode,
