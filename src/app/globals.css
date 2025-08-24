@@ -9,13 +9,7 @@ body{
     font-weight: 100;
     font-style: normal;
 }
-.nav-link{
 
-}
-
-.active-link{
-
-}
 
 .hide{
     display: none;
@@ -24,4 +18,27 @@ body{
     
     display: block;
     color: red;
+}
+
+
+/* استهداف الـ scrollbar */
+.tasks-scroll::-webkit-scrollbar {
+  width: 4px;               /* عرض الـ scrollbar */
+}
+
+/* الخلفية (المكان الفاضي) */
+.tasks-scroll::-webkit-scrollbar-track {
+  background: #374151;      /* gray-700 */
+  border-radius: 10px;
+}
+
+/* الجزء اللي بيتحرك */
+.tasks-scroll::-webkit-scrollbar-thumb {
+  background: #10b981;      /* green-500 */
+  border-radius: 10px;
+}
+
+/* لما المستخدم يعمل hover */
+.tasks-scroll::-webkit-scrollbar-thumb:hover {
+  background: #059669;      /* green-600 */
 }
