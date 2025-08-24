@@ -6,6 +6,11 @@ const UserContext = createContext();
 
 export function UserContextProvider({ children }) {
   const [isLogin, setLogin] = useState(null);
+  const [mood, setMood] = useState('dark')
+
+   const handleMood = ()=>{
+    setMood(mood === 'dark' ? 'light' :  'dark')
+  }
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -17,7 +22,7 @@ export function UserContextProvider({ children }) {
   }, []);
 
   return (
-    <UserContext.Provider value={{ isLogin, setLogin }}>
+    <UserContext.Provider value={{ isLogin, setLogin ,mood,setMood}}>
       {children}
     </UserContext.Provider>
   );
