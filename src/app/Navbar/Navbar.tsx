@@ -33,7 +33,7 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`fixed top-0 left-0 w-full px-4 sm:px-6 flex items-center justify-between z-50 backdrop-blur-md border-b shadow-lg transition-colors duration-500 ${
+      className={`fixed top-0  left-0 w-full px-4 sm:px-6 flex items-center justify-between z-50 backdrop-blur-md border-b shadow-lg transition-colors duration-500 ${
         mood === "light"
           ? "bg-gradient-to-br from-indigo-700 via-purple-600 to-indigo-700 border-purple-500"
           : "bg-[#121212]/80 border-[#2A2A2A]"
@@ -44,13 +44,13 @@ export default function Navbar() {
 <motion.div
   className={`text-lg sm:text-xl font-extrabold bg-clip-text text-transparent select-none transition-colors duration-500 ${
     mood === "light"
-      ? "bg-gradient-to-r from-pink-500 via-purple-400 to-indigo-500"
+      ? "bg-indigo-900"
       : "bg-gradient-to-r from-gray-300 via-gray-100 to-white"
   }`}
   whileHover={{ scale: 1.1 }}
 >
   Go Beyond!
-</motion.div>+
+</motion.div>
 
       {/* Links + Buttons */}
       <ul className="flex gap-3 sm:gap-4 items-center text-xs sm:text-sm font-medium">
@@ -65,7 +65,7 @@ export default function Navbar() {
                   : "bg-gradient-to-br from-yellow-400 to-pink-500 hover:shadow-pink-400/50"
               }`}
             >
-              <AnimatePresence exitBeforeEnter>
+              <AnimatePresence mode="wait">
                 {mood === "light" ? (
                   <motion.svg
                     key="sun"
