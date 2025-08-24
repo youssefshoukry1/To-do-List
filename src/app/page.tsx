@@ -70,7 +70,7 @@ export default function Home() {
     initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
-    className="w-full max-w-full md:max-w-2xl bg-gray-800 shadow-lg rounded-2xl p-4 sm:p-6 flex flex-col gap-5 lg:h-[65vh] h-[58vh] lg:mb-0 mb-7" 
+    className="w-full max-w-full md:max-w-2xl bg-gray-800 shadow-lg rounded-2xl p-4 sm:p-6 flex flex-col gap-5 lg:h-[65vh] h-[58vh] lg:mb-0 mb-12" 
     // ✨ هنا خليت للفورم ارتفاع نسبي للشاشة
   >
     {/* Input */}
