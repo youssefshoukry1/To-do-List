@@ -27,7 +27,7 @@ export default function ResetPassword() {
         if (data.token) {
           localStorage.setItem("userToken", data.token);
           setLoading(false);
-          router.push("/");
+          router.push("/Login");
         }
       })
       .catch((err) => {
