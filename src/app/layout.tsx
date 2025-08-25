@@ -18,13 +18,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <Head>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-          crossOrigin="anonymous"
-        />
-          <link rel="icon" href="/List.png" />
-      </Head>
+  <link rel="icon" href="/List.webp" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossOrigin="anonymous"
+  />
+</Head>
+
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <UserContextProvider>
           <Navbar />
