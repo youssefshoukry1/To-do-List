@@ -52,7 +52,7 @@ const handleMood = () => {
     className={`px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-full transition-all duration-300 shadow-md text-xs sm:text-sm md:text-base
       ${
         mood === "light"
-          ? "bg-gradient-to-r from-purple-400 to-indigo-500 text-white hover:shadow-purple-400/40"
+          ? "bg-[#d8b4fe] hover:shadow-purple-300/60"
           : "bg-gradient-to-r from-red-500 to-red-700 text-white hover:shadow-red-500/30"
       }`}
   >

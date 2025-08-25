@@ -70,7 +70,7 @@ const {mood} = useContext(UserContext)
       mood === "light" ? "text-[rgb(120,40,100)]" : "text-green-400"
     } lg:pt-15`}
   >
-    Make Your Adventure
+    Can You ?
   </motion.h1>
 
   {/* الفورم */}
