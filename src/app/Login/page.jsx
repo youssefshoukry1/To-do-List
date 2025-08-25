@@ -36,7 +36,7 @@ export default function Page() {
     email: Yup.string().required("email is required").email("enter a valid email"),
     password: Yup.string()
       .required("password is required")
-      .matches(/^[A-Z][a-z0-9]{5,7}$/, "min length is 5 and max length is 8 and start with capital"),
+      .matches(/^[A-Z][a-z0-9]{5,15}$/, "min length is 5 and max length is 16 and start with capital"),
   });
 
   const formik = useFormik({

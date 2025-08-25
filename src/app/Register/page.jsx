@@ -49,8 +49,8 @@ export default function Register() {
     password: Yup.string()
       .required("password is required")
       .matches(
-        /^[A-Z][a-z0-9]{5,7}$/,
-        "min length is 6 and max is 8 and start with capital"
+        /^[A-Z][a-z0-9]{5,15}$/,
+        "min length is 6 and max is 16 and start with capital"
       ),
     rePassword: Yup.string()
       .required("confirm password is required")
