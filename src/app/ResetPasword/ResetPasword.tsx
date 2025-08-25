@@ -2,10 +2,11 @@
 
 import axios from "axios";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useContext } from "react";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import { environment } from "../environment";
+import UserContext from "@/context/userContext/UserContextProvider";
 
 type ResetPasswordValues = {
   email: string;
@@ -14,14 +15,17 @@ type ResetPasswordValues = {
 
 export default function ResetPassword() {
   const router = useRouter();
+  const { mood } = useContext(UserContext);
 
+  // ✅ نفس الـ Validation اللي في النسخة اللي انت عايزها
   const validationSchema = Yup.object({
-    email: Yup.string().required("Email is required").email("Enter a valid email"),
+    email: Yup.string().required("email is required").email("enter availed email"),
     newPassword: Yup.string()
-      .required("Password is required")
-      .matches(/^[A-Z][a-z0-9]{5,7}$/, "Enter a valid password"),
+      .required("password is required")
+      .matches(/^[A-Z][a-z0-9]{5,7}$/, "enter availed password"),
   });
 
+  // ✅ نفس لوجيك resetPassword
   function resetPassword(values: ResetPasswordValues) {
     axios
       .put(`${environment.baseUrl}/auth/resetPassword`, values)
@@ -29,12 +33,13 @@ export default function ResetPassword() {
         console.log(data);
         if (data.token) {
           localStorage.setItem("userToken", data.token);
-          router.push("/Login");
+          router.push("/Login"); // ✅ زي navigate('/login')
         }
       })
       .catch((err) => console.error("Reset failed:", err));
   }
 
+  // ✅ Formik زي ما هو
   const formik = useFormik<ResetPasswordValues>({
     initialValues: { email: "", newPassword: "" },
     validationSchema,
@@ -42,15 +47,37 @@ export default function ResetPassword() {
   });
 
   return (
-    <section className="bg-gradient-to-b from-[#121212] to-[#1E1E1E] h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md p-6 bg-[#1E1E1E] rounded-xl shadow-2xl border border-[#2A2A2A]">
-        <h2 className="mb-4 text-2xl font-bold text-[#E0E0E0] text-center">
+    <section
+      className={`h-screen flex items-center justify-center transition-all duration-500 ${
+        mood === "light"
+          ? "bg-gradient-to-br from-[rgb(235,190,228)] via-[rgb(245,210,235)] to-[rgb(225,170,215)] text-[#3b0a2e]"
+          : "bg-gradient-to-b from-[#121212] to-[#1E1E1E] text-gray-200"
+      }`}
+    >
+      <div
+        className={`w-full max-w-md p-6 rounded-2xl shadow-2xl transition-colors duration-500 ${
+          mood === "light"
+            ? "bg-[rgb(245,210,235)]/80 backdrop-blur-lg border border-[rgb(235,190,228)]"
+            : "bg-[#1E1E1E] border border-gray-700"
+        }`}
+      >
+        <h2
+          className={`mb-4 text-2xl font-bold text-center ${
+            mood === "light" ? "text-[rgb(120,40,100)]" : "text-gray-200"
+          }`}
+        >
           Change Password
         </h2>
+
         <form onSubmit={formik.handleSubmit} className="space-y-4">
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block mb-2 text-sm font-medium text-[#E0E0E0]">
+            <label
+              htmlFor="email"
+              className={`block mb-2 text-sm font-medium ${
+                mood === "light" ? "text-[rgb(120,40,100)]" : "text-gray-400"
+              }`}
+            >
               Your Email
             </label>
             <input
@@ -61,7 +88,11 @@ export default function ResetPassword() {
               value={formik.values.email}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              className="bg-[#2A2A2A] border border-[#3A3A3A] text-[#E0E0E0] rounded-lg text-sm block w-full p-2.5 focus:ring-green-500 focus:border-green-500"
+              className={`border text-sm rounded-lg block w-full p-2.5 transition-colors duration-500 ${
+                mood === "light"
+                  ? "bg-[rgb(235,190,228)] text-[#3b0a2e] border-[rgb(225,170,215)] focus:ring-[rgb(200,130,180)] focus:border-[rgb(200,130,180)]"
+                  : "bg-[#2A2A2A] border-gray-600 text-gray-200 focus:ring-purple-500 focus:border-purple-500"
+              }`}
               required
             />
             {formik.touched.email && formik.errors.email && (
@@ -73,7 +104,9 @@ export default function ResetPassword() {
           <div>
             <label
               htmlFor="newPassword"
-              className="block mb-2 text-sm font-medium text-[#E0E0E0]"
+              className={`block mb-2 text-sm font-medium ${
+                mood === "light" ? "text-[rgb(120,40,100)]" : "text-gray-400"
+              }`}
             >
               New Password
             </label>
@@ -85,7 +118,11 @@ export default function ResetPassword() {
               value={formik.values.newPassword}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              className="bg-[#2A2A2A] border border-[#3A3A3A] text-[#E0E0E0] rounded-lg text-sm block w-full p-2.5 focus:ring-green-500 focus:border-green-500"
+              className={`border text-sm rounded-lg block w-full p-2.5 transition-colors duration-500 ${
+                mood === "light"
+                  ? "bg-[rgb(235,190,228)] text-[#3b0a2e] border-[rgb(225,170,215)] focus:ring-[rgb(200,130,180)] focus:border-[rgb(200,130,180)]"
+                  : "bg-[#2A2A2A] border-gray-600 text-gray-200 focus:ring-purple-500 focus:border-purple-500"
+              }`}
               required
             />
             {formik.touched.newPassword && formik.errors.newPassword && (
@@ -99,14 +136,28 @@ export default function ResetPassword() {
               <input
                 id="terms"
                 type="checkbox"
-                className="w-4 h-4 border border-[#3A3A3A] rounded bg-[#2A2A2A] focus:ring-2 focus:ring-green-500"
+                className={`w-4 h-4 rounded focus:ring-2 ${
+                  mood === "light"
+                    ? "bg-[rgb(235,190,228)] border-[rgb(200,130,180)] focus:ring-[rgb(200,130,180)]"
+                    : "bg-[#2A2A2A] border-gray-600 focus:ring-purple-500"
+                }`}
                 required
               />
             </div>
             <div className="ml-3 text-sm">
-              <label htmlFor="terms" className="text-gray-400">
+              <label
+                htmlFor="terms"
+                className={mood === "light" ? "text-[rgb(120,40,100)]" : "text-gray-400"}
+              >
                 I accept the{" "}
-                <a href="#" className="text-green-500 hover:underline">
+                <a
+                  href="#"
+                  className={
+                    mood === "light"
+                      ? "text-[rgb(200,130,180)] hover:underline"
+                      : "text-purple-400 hover:underline"
+                  }
+                >
                   Terms and Conditions
                 </a>
               </label>
@@ -116,7 +167,11 @@ export default function ResetPassword() {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full text-white bg-green-600 hover:bg-green-500 font-medium rounded-lg text-sm px-5 py-2.5 transition shadow-md"
+            className={`w-full font-medium rounded-lg text-sm px-5 py-2.5 shadow-md transition-colors duration-500 ${
+              mood === "light"
+                ? "bg-[rgb(200,130,180)] hover:bg-[rgb(180,100,150)] text-white"
+                : "bg-purple-600 hover:bg-purple-500 text-white"
+            }`}
           >
             Reset Password
           </button>
