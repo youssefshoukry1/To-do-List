@@ -46,14 +46,19 @@ const handleMood = () => {
   {/* Links + Buttons */}
   <ul className="flex gap-2 sm:gap-4 items-center font-medium">
     {isLogin && (
-      <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-        <button
-          onClick={logOut}
-          className="px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-full transition-all duration-300 bg-gradient-to-r from-red-500 to-red-700 text-white shadow-md hover:shadow-red-500/30 text-xs sm:text-sm md:text-base"
-        >
-          🚪 Logout
-        </button>
-      </motion.li>
+<motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+  <button
+    onClick={logOut}
+    className={`px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-full transition-all duration-300 shadow-md text-xs sm:text-sm md:text-base
+      ${
+        mood === "light"
+          ? "bg-gradient-to-r from-purple-400 to-indigo-500 text-white hover:shadow-purple-400/40"
+          : "bg-gradient-to-r from-red-500 to-red-700 text-white hover:shadow-red-500/30"
+      }`}
+  >
+    🚪 Logout
+  </button>
+</motion.li>
     )}
 
     {!isLogin &&
