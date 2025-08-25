@@ -27,8 +27,8 @@ const handleMood = () => {
 
   const links = [
     { href: "/", label: "🏠 Home" },
-    { href: "/Login", label: "🔑 Login" },
-    { href: "/Register", label: "🔑 Register" },
+    { href: "/Login", label: " Login" },
+    { href: "/Register", label: " Register" },
   ];
 
   return (
@@ -56,7 +56,7 @@ const handleMood = () => {
           : "bg-gradient-to-r from-red-500 to-red-700 text-white hover:shadow-red-500/30"
       }`}
   >
-    🚪 Logout
+      Logout
   </button>
 </motion.li>
     )}
