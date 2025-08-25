@@ -125,10 +125,11 @@ const {mood} = useContext(UserContext)
 
     {/* Tasks List */}
     <div
-      className={`tasks-scroll rounded-xl p-3 sm:p-4 space-y-3 flex-1 overflow-y-auto shadow-inner transition-colors duration-500 ${
-        mood === "light" ? "bg-[rgb(235,190,228)]/50" : "bg-[#2A2A2A]"
-      }`}
-    >
+  className={`tasks-scroll rounded-xl p-3 sm:p-4 space-y-3 flex-1 overflow-y-auto shadow-inner transition-colors duration-500 ${
+    mood === "light" ? "bg-[rgb(235,190,228)]/50 scrollbar-light" : "bg-[#2A2A2A] scrollbar-dark"
+  }`}
+>
+
       {tasks.length === 0 && (
         <p
           className={`text-center text-sm sm:text-base ${

@@ -21,24 +21,42 @@ body{
 }
 
 
-/* استهداف الـ scrollbar */
-.tasks-scroll::-webkit-scrollbar {
-  width: 4px;               /* عرض الـ scrollbar */
+/* Scrollbar Light Mode */
+.scrollbar-light::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-/* الخلفية (المكان الفاضي) */
-.tasks-scroll::-webkit-scrollbar-track {
-  background: #374151;      /* gray-700 */
-  border-radius: 10px;
+.scrollbar-light::-webkit-scrollbar-track {
+  background: rgba(245, 210, 235, 0.3); /* نفس خلفية الـ form شوية شفافية */
+  border-radius: 8px;
 }
 
-/* الجزء اللي بيتحرك */
-.tasks-scroll::-webkit-scrollbar-thumb {
-  background: #10b981;      /* green-500 */
-  border-radius: 10px;
+.scrollbar-light::-webkit-scrollbar-thumb {
+  background: rgb(200, 130, 180); /* لون متناسق مع المود */
+  border-radius: 8px;
 }
 
-/* لما المستخدم يعمل hover */
-.tasks-scroll::-webkit-scrollbar-thumb:hover {
-  background: #059669;      /* green-600 */
+.scrollbar-light::-webkit-scrollbar-thumb:hover {
+  background: rgb(180, 100, 150);
+}
+
+/* Scrollbar Dark Mode */
+.scrollbar-dark::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-dark::-webkit-scrollbar-track {
+  background: #2A2A2A;
+  border-radius: 8px;
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb {
+  background: #00C853;
+  border-radius: 8px;
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb:hover {
+  background: #00E676;
 }
