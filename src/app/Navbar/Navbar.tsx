@@ -102,7 +102,7 @@ export default function Navbar() {
           setMood(newMood);
           localStorage.setItem("mood", newMood);
         }}
-        className={`w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full shadow-lg relative overflow-hidden transition-colors duration-500 ${
+        className={`w-9 h-9 outline-none sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full shadow-lg relative overflow-hidden transition-colors duration-500 ${
           mood === "light"
             ? "bg-[#d8b4fe] hover:shadow-purple-300/60"
             : "bg-gradient-to-br from-gray-700 to-gray-900 hover:shadow-indigo-500/50"
