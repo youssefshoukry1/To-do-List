@@ -55,7 +55,7 @@ export default function Home() {
 
   return (
 <section
-  className={`p-4 sm:p-6 pt-24 flex flex-col justify-center items-center min-h-screen transition-all duration-500 ${
+  className={`p-4 sm:p-6 pt-8 flex flex-col justify-center items-center min-h-screen transition-all duration-500 ${
     mood === "light"
       ? "bg-gradient-to-br from-[rgb(235,190,228)] via-[rgb(245,210,235)] to-[rgb(225,170,215)] text-[#3b0a2e]"
       : "bg-gradient-to-b from-[#121212] to-[#1E1E1E] text-gray-200"
@@ -65,7 +65,7 @@ export default function Home() {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2 }}
-      className="absolute top-28 sm:top-20 md:top-20 left-1/2 -translate-x-1/2 text-center text-sm sm:text-base md:text-lg px-4"
+      className="absolute top-20 sm:top-20 md:top-20 left-1/2 -translate-x-1/2 text-center text-sm sm:text-base md:text-lg px-4"
     >
       Register now to save your notes !
     </motion.p>
